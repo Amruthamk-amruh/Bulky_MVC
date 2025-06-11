@@ -33,9 +33,66 @@ namespace BulkyWeb.Controllers
 				_db.SaveChanges();
 				return RedirectToAction("Index");
 			}
-            return View();
-            
+            return View();   
 			
+		}
+		public IActionResult Edit(int ? id)
+		{
+			if (id == null || id == 0) 
+			{
+				return NotFound();
+			}
+			//Category categoryFromDb = _db.Categories.Find(id);
+			//Category? categoryFromDb = _db.Categories.where(u => u.Id == id).FirstOrDefault();
+			Category? categoryFromDb = _db.Categories.FirstOrDefault(u => u.Id == id);
+
+			if (categoryFromDb == null)
+			{
+				return NotFound();
+			}
+			return View(categoryFromDb);
+		}
+		[HttpPost]
+		public IActionResult Edit(Category obj)
+		{
+		
+			if (ModelState.IsValid)
+			{
+				_db.Categories.Update(obj);
+				_db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View();
+
+
+		}
+
+		public IActionResult Delete(int? id)
+		{
+			if (id == null || id == 0)
+			{
+				return NotFound();
+			}
+	
+			Category? categoryFromDb = _db.Categories.FirstOrDefault(d => d.Id == id);
+
+			if (categoryFromDb == null)
+			{
+				return NotFound();
+			}
+			return View(categoryFromDb);
+		}
+		[HttpPost,ActionName("Delete")]
+		public IActionResult DeletePOST(int ? id)
+		{
+			Category? obj = _db.Categories.FirstOrDefault(d=>d.Id==id);
+			if (obj == null)
+			{
+				return NotFound();
+			}
+			_db.Categories.Remove(obj);
+			_db.SaveChanges();
+			return RedirectToAction("Index");
 		}
 	}
 }
