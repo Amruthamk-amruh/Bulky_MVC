@@ -12,6 +12,7 @@ namespace BulkyWeb.Repository
     {
         private ApplicationDbContext _db;
         public ICategoryRepository Category { get; private set; }
+        public IProductsRepository Products { get; private set; }
         public UnitOfWork(ApplicationDbContext db) 
         {
             _db = db;
