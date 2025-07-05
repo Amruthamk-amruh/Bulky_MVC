@@ -17,10 +17,12 @@ namespace BulkyWeb.Repository
         {
             _db = db;
             Category = new CategoryRepository(_db);
+            Products = new ProductsRepository(_db);
         }
+       
 
-        
-            public void Save()
+
+        public void Save()
             {
             _db.SaveChanges();
         }

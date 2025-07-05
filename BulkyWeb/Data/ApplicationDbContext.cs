@@ -1,9 +1,10 @@
 ﻿using BulkyWeb.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
 namespace BulkyWeb.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
         
@@ -14,6 +15,8 @@ namespace BulkyWeb.Data
         public DbSet<Products> Productss { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Action", DisplayOrder = 1},
                 new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
@@ -32,7 +35,8 @@ namespace BulkyWeb.Data
                    Price = 90,
                    Price50 = 85,
                    Price100 = 80,
-                   //CategoryId = 1
+                   CategoryId = 1,
+                   ImageUrl =""
                },
                 new Products
                 {
@@ -45,8 +49,9 @@ namespace BulkyWeb.Data
                     Price = 30,
                     Price50 = 25,
                     Price100 = 20,
-                    //CategoryId = 1
-                },
+                    CategoryId = 1,
+					ImageUrl = ""
+				},
                 new Products
                 {
                     Id = 3,
@@ -58,8 +63,9 @@ namespace BulkyWeb.Data
                     Price = 50,
                     Price50 = 40,
                     Price100 = 35,
-                    //CategoryId = 1
-                },
+                    CategoryId = 1,
+					ImageUrl = ""
+				},
                 new Products
                 {
                     Id = 4,
@@ -71,8 +77,9 @@ namespace BulkyWeb.Data
                     Price = 65,
                     Price50 = 60,
                     Price100 = 55,
-                    //CategoryId = 2
-                },
+                    CategoryId = 2,
+					ImageUrl = ""
+				},
                 new Products
                 {
                     Id = 5,
@@ -84,8 +91,9 @@ namespace BulkyWeb.Data
                     Price = 27,
                     Price50 = 25,
                     Price100 = 20,
-                    //CategoryId = 2
-                },
+                    CategoryId = 2,
+					ImageUrl = ""
+				},
                 new Products
                 {
                     Id = 6,
@@ -97,8 +105,9 @@ namespace BulkyWeb.Data
                     Price = 23,
                     Price50 = 22,
                     Price100 = 20,
-                   // CategoryId = 3
-                }
+                    CategoryId = 3,
+					ImageUrl = ""
+				}
                );
         }
     }
